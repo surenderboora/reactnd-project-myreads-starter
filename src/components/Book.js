@@ -10,10 +10,10 @@ class Book extends Component {
                 <div className="book-shelf-changer">
                   <select>
                     <option value="none" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
-                    <option value="none">None</option>
+                    <option selected = {book.shelf === 'currentlyReading'} value="currentlyReading">Currently Reading</option>
+                    <option selected = {book.shelf === 'wantToRead'} value="wantToRead">Want to Read</option>
+                    <option selected = {book.shelf === 'read'} value="read">Read</option>
+                    <option selected = {book.shelf === 'none'} value="none">None</option>
                   </select>
                 </div>
               </div>

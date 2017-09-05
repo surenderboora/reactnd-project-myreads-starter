@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, Route } from 'react-router-dom'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookList from './components/BookList'
+import BookSearchResults from './components/BookSearchResults'
 class BooksApp extends React.Component {
   state = {}
   booksResponse = {
@@ -199,7 +199,7 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={() => (
-            <BookList books={this.booksResponse.books}/>
+            <BookSearchResults books={this.booksResponse.books}/>
         )} />
         <Route exact path="/" render={()=> (
           <div className="list-books">

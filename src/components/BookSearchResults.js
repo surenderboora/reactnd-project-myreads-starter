@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Book from './Book'
 import BookList from './BookList'
 import PropTypes from 'prop-types'
 
@@ -28,7 +27,7 @@ class BookSearchResults extends Component {
                   </div>
                 </div>
                 <div className="search-books-results">
-                  <BookList books = {books} />
+                  <BookList books={books} onShelfChange={this.props.onShelfChange}/>
                 </div>
             </div>
         );

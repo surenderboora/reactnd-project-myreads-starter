@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BookList from './BookList'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
+import * as BooksAPI from '../BooksAPI'
 
 class BookSearchResults extends Component {
-    static propTypes = {
-        books: PropTypes.array.isRequired
-    }
+    state = {
+        query: '',
+        books: []
+    };
+    updateQuery = (query) => {
+        this.setState({
+            query: query
+        })
+        if(query.trim() === '') {
+            this.setState({books : []});
+            return;
+        }
+        BooksAPI.search(query, 20).then((books) => {
+            this.setState({
+                books: books
+            });
+        });
+    };
+    resetSearch = ()=> {
+        this.setState({query: ''});
+    };
     render() {
-        const books = this.props.books;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                  <Link to="/" className="close-search">Close</Link>
-                  <div className="search-books-input-wrapper">
+                    <Link to="/" className="close-search">Close</Link>
+                    <div className="search-books-input-wrapper">
                     {/*
                       NOTES: The search from BooksAPI is limited to a particular set of search terms.
                       You can find these search terms here:
@@ -22,12 +40,16 @@ class BookSearchResults extends Component {
                       However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                       you don't find a specific author or title. Every search is limited by search terms.
                     */}
-                    <input type="text" placeholder="Search by title or author"/>
+                    <input
+                        type="text"
+                        value={this.state.query}
+                        onChange={(e) => this.updateQuery(e.target.value)}
+                        placeholder="Search by title or author"/>
 
-                  </div>
+                    </div>
                 </div>
                 <div className="search-books-results">
-                  <BookList books={books} onShelfChange={this.props.onShelfChange}/>
+                    <BookList books={this.state.books} onShelfChange={this.props.onShelfChange}/>
                 </div>
             </div>
         );

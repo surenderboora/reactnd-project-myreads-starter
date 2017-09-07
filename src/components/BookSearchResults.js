@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom';
 import BookList from './BookList'
 // import PropTypes from 'prop-types'
 import * as BooksAPI from '../BooksAPI'
+import { debounce } from 'throttle-debounce'
 
 class BookSearchResults extends Component {
+    constructor() {
+        super();
+        this.searchBooks = debounce(500, this.searchBooks);
+    }
     state = {
         query: '',
         books: []
     };
-    updateQuery = (query) => {
-        this.setState({
-            query: query
-        })
+    searchBooks = (query) => {
         if(query.trim() === '') {
             this.setState({books : []});
             return;
@@ -22,6 +24,12 @@ class BookSearchResults extends Component {
                 books: books
             });
         });
+    };
+    updateQuery = (query) => {
+        this.setState({
+            query: query
+        })
+        this.searchBooks(query);
     };
     resetSearch = ()=> {
         this.setState({query: ''});

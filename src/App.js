@@ -28,6 +28,7 @@ class BooksApp extends React.Component {
         books : books
       }
     });
+    BooksAPI.update(bookToMove, moveToShelf);
   };
   render() {
     return (

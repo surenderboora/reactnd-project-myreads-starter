@@ -4,6 +4,8 @@ import { Link, Route } from 'react-router-dom'
 import './App.css'
 import BookSearchResults from './components/BookSearchResults'
 import BookList from './components/BookList'
+import BookShelfList from './components/BookShelfList'
+
 class BooksApp extends React.Component {
   state = {
     books:[]
@@ -218,45 +220,9 @@ class BooksApp extends React.Component {
               onShelfChange={this.onShelfChange}/>
         )} />
         <Route exact path="/" render={()=> (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <BookList books={this.state.books.filter((book)=> (
-                      book.shelf === 'currentlyReading'
-                      ))}
-                      onShelfChange={this.onShelfChange}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <BookList books={this.state.books.filter((book)=> (
-                      book.shelf === 'wantToRead'
-                      ))}
-                      onShelfChange={this.onShelfChange}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <BookList books={this.state.books.filter((book)=> (
-                      book.shelf === 'read'
-                      ))}
-                      onShelfChange={this.onShelfChange}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
-            </div>
-          </div>
+            <BookShelfList
+              onShelfChange={this.onShelfChange}
+              books={this.state.books}/>
         )} />
       </div>
     )

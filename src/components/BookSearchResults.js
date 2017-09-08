@@ -20,6 +20,13 @@ class BookSearchResults extends Component {
             return;
         }
         BooksAPI.search(query, 20).then((books) => {
+            let { booksOnShelves } = this.props;
+            books.map((book)=> {
+                let bookOnShelf = booksOnShelves.filter((bookOnShelf) => { return bookOnShelf.id == book.id;});
+                if (bookOnShelf.length > 0) {
+                    book.shelf = bookOnShelf[0].shelf;
+                }
+            });
             this.setState({
                 books: books
             });

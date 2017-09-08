@@ -10,7 +10,7 @@ class BookList extends Component {
         this.props.onShelfChange(shelf, book);
     };
     render() {
-        const books = this.props.books;
+        let books = this.props.books;
         return (
             <ol className="books-grid">
                 {books.map((book)=>(
